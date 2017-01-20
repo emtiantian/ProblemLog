@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../common/js/jquery-1.8.3.min.js"></script>
+		<script src="../js/chosenOne.js"></script>
+		<link rel="stylesheet" type="text/css"  href="../css/chosen.css"/>
+	</head>
+	<body>
+		<select data-placeholder="Select Users..." class="tag-select" multiple id='a'>
+                        <option value="David Becham">郝赫</option> 
+                        <option value="David Becham">完全</option> 
+                        <option value="Christian Bale">开始</option>                                          
+                   </select>                  
+	</body>
+	<script>
+		$(function(){
+			$("#a").chosen({
+				search_contains:true,
+				search_pinyin:true,
+			});
+//			setTimeout(function(){
+//          		console.log("zhixing");
+//          		$("#a").val("Malinda Hollaway").trigger("chosen:updated");					
+//					//$("#a").trigger("chosen:updated");
+//          	},5000);
+		})
+	</script>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>纯cssloading</title>
+		<script src="jquery.min.js"></script>
+		<style>
+			.loadEffect{ width: 100px; height: 100px; position: relative; margin: 0 auto; margin-top: 25%; } 
+			.loadEffect span{ display: inline-block; width: 20px; height: 20px; border-radius: 50%; background: #ffffff; position: absolute;
+			 -webkit-animation: load 1.04s ease infinite;
+			 animation: load 1.04s ease infinite; 
+			 } 
+			 @keyframes load{
+			 	0%{
+			-ms-transform:transform: scale(1.2); 	/* IE 9 */
+			-moz-transform:transform: scale(1.2);  	/* Firefox */
+			-webkit-transform:transform: scale(1.2);  /* Safari 和 Chrome */
+			-o-transform:transform: scale(1.2); 
+			transform:transform: scale(1.2); 
+			opacity: 1;  } 
+			100%{ 			
+			-ms-transform: scale(.3); 	/* IE 9 */
+			-moz-transform:scale(.3); 	/* Firefox */
+			-webkit-transform:scale(.3); /* Safari 和 Chrome */
+			-o-transform:scale(.3);
+			transform: scale(.3);
+			opacity: 0.5; } 
+			 }
+			@-webkit-keyframes load{ 
+			0%{
+			
+			-ms-transform:transform: scale(1.2); 	/* IE 9 */
+			-moz-transform:transform: scale(1.2);  	/* Firefox */
+			-webkit-transform:transform: scale(1.2);  /* Safari 和 Chrome */
+			-o-transform:transform: scale(1.2); 
+			transform:transform: scale(1.2); 
+			opacity: 1;  } 
+			100%{ 			
+			-ms-transform: scale(.3); 	/* IE 9 */
+			-moz-transform:scale(.3); 	/* Firefox */
+			-webkit-transform:scale(.3); /* Safari 和 Chrome */
+			-o-transform:scale(.3);
+			transform: scale(.3);
+			opacity: 0.5; } 
+			} 
+			.loadEffect span:nth-child(1){ left: 0; top: 50%; margin-top:-10px; 
+			-webkit-animation-delay:0.13s;
+			animation-delay:0.13s; } 
+			.loadEffect span:nth-child(2){ left: 14px; top: 14px; 
+			-webkit-animation-delay:0.26s; 
+			animation-delay:0.26s;} 
+			.loadEffect span:nth-child(3){ left: 50%; top: 0; margin-left: -10px; 
+			-webkit-animation-delay:0.39s;
+			animation-delay:0.39s; }
+			.loadEffect span:nth-child(4){ top: 14px; right:14px; 
+			-webkit-animation-delay:0.52s;
+			animation-delay:0.52s; }
+			.loadEffect span:nth-child(5){ right: 0; top: 50%; margin-top:-10px; 
+			-webkit-animation-delay:0.65s;
+			animation-delay:0.65s; }
+			.loadEffect span:nth-child(6){ right: 14px; bottom:14px; 
+			-webkit-animation-delay:0.78s;
+			animation-delay:0.78s; }
+			.loadEffect span:nth-child(7){ bottom: 0; left: 50%; margin-left: -10px; 
+			-webkit-animation-delay:0.91s;
+			animation-delay:0.91s; }
+			.loadEffect span:nth-child(8){ bottom: 14px; left: 14px; 
+			-webkit-animation-delay:1.04s; 
+			animation-delay:1.04s;}
+		</style>
+	</head>
+	<body>		
+		<div style="position: relative;">
+			<div style="width: 500px;height: 500px;background: #000000;" id="a">
+				<div class="loadEffect"> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> </div>				
+			</div>
+			<div>
+				<img src="wind.svg" />
+			</div>
+		</div>
+		
+	</body>
+	
+	<script>
+		//&#61903;&#61815;
+		$("#a").on("click",function(){
+			console.log("1");
+		})
+	</script>
+	<style>
+		.fontIcon{
+			writing-mode:tb-rl;text-align:left;
+			  background: rgba(0, 0, 0, 0.68);
+			  color:#FFFFFF;			
+			}
+	</style>
+</html>

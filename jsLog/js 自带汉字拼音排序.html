@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>js 自带汉字拼音排序</title>
+	</head>
+	<body>
+	<script type="text/javascript">
+	    function startSort(){
+	          var a=document.getElementById('s').value;
+	          a=a.split(',')
+	          a.sort();
+	          document.getElementById('r1').value=a;
+	          a.sort(function(a,b){return a.localeCompare(b)});//汉字拼音排序方法
+	          document.getElementById('r2').value=a;
+	     }     
+	</script>
+<p>包含汉字的字符串数组(用逗号","隔开)：<br />
+<textarea id="s" style="width: 100%; overflow: scroll; word-wrap: normal;" rows="10">张韶涵,b土,abort,张学友,something,苹果,五月天,刘德华,香蕉,apple,范玮琪,阿桑</textarea></p>
+
+<p style="text-align: center"><input type="button" value="排序测试" onclick="startSort()" style="width: 300px" /></p>
+
+<p>默认排序结果：<br />
+<textarea id="r1" style="width: 100%; overflow: scroll; word-wrap: normal;" rows="10"></textarea></p>
+
+<p>汉字拼音顺序排序结果：<br />
+<textarea id="r2" style="width: 100%; overflow: scroll; word-wrap: normal;" rows="10"></textarea></p>
+	</body>
+</html>

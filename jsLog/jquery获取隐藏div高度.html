@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>  
+<html lang="en-US">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>测试获取隐藏div高度</title>  
+    <meta name="description" content="jquery获取隐藏div高度是可以获取的" />  
+      
+   <script type="text/javascript" src="../common/js/jquery-1.8.3.min.js" ></script>
+    <style>  
+    .div2{display:none;height:300px;background:green;}  
+    </style>  
+    </head>  
+<body>  
+    <div id="div1" style="display:none;height:200px;background:red;"></div>  
+    <div id="div2" class="div2"></div>  
+    <div id="div3" ></div>  
+    <div id="div4" style="display:none;">
+    	<table width="100%">
+   				  <tr style="height:26px">
+					  <td width="50%" style="padding-left:2px;">
+							 &nbsp;<img width="23" height="22" alt="" style="vertical-align:middle;"  src="<%=basePath %>static/pre/pages/images/roll/wsstate_pink2.png">
+							<div class="texta divwidth" >&nbsp;备货</div><div class="textd divwidth2" id="psStateNum1">${psStateNum1}</div>
+							<span class="textb">个</span>
+					  </td>
+   				  </tr>
+   				  <tr style="height:26px">
+					  <td width="50%" style="padding-left:2px;">
+							 &nbsp;<img width="23" height="22" alt="" style="vertical-align:middle;"  src="<%=basePath %>static/pre/pages/images/roll/wsstate_base.png">
+							<div class="texta divwidth">&nbsp;发货</div><div class="textd divwidth2" id="psStateNum2">${psStateNum2}</div>
+							<span class="textb">个</span>
+					  </td>
+   				  </tr>
+   				   <tr style="height:26px">
+					  <td width="50%" style="padding-left:2px;">
+							 &nbsp;<img width="23" height="22" alt="" style="vertical-align:middle;"  src="<%=basePath %>static/pre/pages/images/roll/wsstate_pink.png">
+							<div class="texta divwidth">&nbsp;发货吊装</div><div class="textd divwidth2" id="psStateNum3">${psStateNum3}</div>
+							<span class="textb">个</span>
+					  </td>
+   				  </tr>
+   				    <tr style="height:26px">
+					  <td width="50%" style="padding-left:2px;">
+							 &nbsp;<img width="23" height="22" alt="" style="vertical-align:middle;"  src="<%=basePath %>static/pre/pages/images/roll/wsstate_yellow.png">
+							<div class="texta divwidth">&nbsp;发货吊装调试</div><div class="textd divwidth2" id="psStateNum4">${psStateNum4}</div>
+							<span class="textb">个</span>
+					  </td>
+   				  </tr>
+   				    <tr style="height:26px">
+					  <td width="50%" style="padding-left:2px;">
+							 &nbsp;<img width="23" height="22" alt="" style="vertical-align:middle;"  src="<%=basePath %>static/pre/pages/images/roll/wsstate_red_1.png">
+							<div class="texta divwidth">&nbsp;消缺期</div><div class="textd divwidth2" id="psStateNum5">${psStateNum5}</div>
+							<span class="textb">个</span>
+					  </td>
+   				  </tr>
+   				    <tr style="height:26px">
+					  <td width="50%" style="padding-left:2px;">
+							 &nbsp;<img width="23" height="22" alt="" style="vertical-align:middle;"  src="<%=basePath %>static/pre/pages/images/roll/wsstate_red_2.png">
+							<div class="texta divwidth">&nbsp;试运行</div><div class="textd divwidth2" id="psStateNum6">${psStateNum6}</div>
+							<span class="textb">个</span>
+					  </td>
+   				  </tr>
+   				  
+   				    <tr style="height:26px">
+					  <td width="50%" style="padding-left:2px;">
+							 &nbsp;<img width="23" height="22" alt="" style="vertical-align:middle;"  src="<%=basePath %>static/pre/pages/images/roll/wsstate_green.png">
+							<div class="texta divwidth">&nbsp;质保期</div><div class="textd divwidth2" id="psStateNum7">${psStateNum7}</div>
+							<span class="textb">个</span>
+					  </td>
+   				  </tr>
+   				    <tr style="height:26px">
+					  <td width="50%" style="padding-left:2px;">
+							 &nbsp;<img width="23" height="22" alt="" style="vertical-align:middle;"  src="<%=basePath %>static/pre/pages/images/roll/wsstate_gray.png">
+							<div class="texta divwidth">&nbsp;出质保</div><div class="textd divwidth2" id="psStateNum8">${psStateNum8}</div>
+							<span class="textb">个</span>
+					  </td>
+   				  </tr>
+   				   
+				</table>
+    </div>
+      
+    <script>  
+        $(function(){  
+            console.log("style 格式高度："+$("#div1").height());  
+            console.log("class格式高度："+$("#div2").height());  
+            console.log("设置div3高度为100px");  
+            $("#div3").css({"height":"100px","background-color":"black"});  
+            console.log("隐藏div3");  
+            $("#div3").hide();  
+            console.log("获取div3高度："+$("#div3").height()); 
+            console.log("获取div4高度："+$("#div4").height());  
+            $("#div4").hide();  
+            console.log("获取div4高度："+$("#div4").height());  
+            //这里有个问题 虽然在测试上 能获取高度 但是在 应用的时候 还是有不能获取高度的情况 暂时没找到问题所在 
+            
+        });  
+  
+    </script>  
+</body>  
+</html> 

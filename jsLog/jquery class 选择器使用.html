@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>jquery class 选择器使用</title>
+		<script src="jquery.min.js"></script>
+	</head>
+	<body>
+		<div id="aa">
+			<div class="name" id="bb">123</div>
+			<div class="name active">456</div>
+		</div>
+	</body>
+	<script>
+		$(function(){
+			var a1=$("#aa").  ("div").find(".name").html();
+			var a2=$("#aa div .active").attr("id");
+			var a3=$("#aa div[class='active']").attr("id");
+			var a4 = $("#aa div[class*='active']").html();
+			console.log(a1)
+			console.log(a2)
+			console.log(a3)
+			console.log(a4)
+		})
+	</script>
+</html>

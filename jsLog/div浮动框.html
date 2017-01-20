@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>div浮动框</title>
+		<script type="text/javascript" src="../common/js/jquery-1.8.3.min.js" ></script>
+		<link href="../common/css/animate.css" rel="stylesheet" />
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="fadeInDown" style="width:400px;">
+			<div style="width:400px;height: 400px;background: greenyellow;"></div>
+		</div>
+		<div>
+			<img src="" /><span>项目阶段</span>
+		</div>
+	</body>
+	<script>
+		//mouseover与mouseenter
+
+//		不论鼠标指针穿过被选元素或其子元素，都会触发 mouseover 事件。
+//		
+//		只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件。
+//		
+//		
+//		mouseout与mouseleave
+//		
+//		不论鼠标指针离开被选元素还是任何子元素，都会触发 mouseout 事件。
+//		
+//		只有在鼠标指针离开被选元素时，才会触发 mouseleave 事件。
+
+		function adddiv(ele){
+			var div = document.createElement("div");
+				div.style.zIndex = 100;
+				div.style.width = $(ele).find("div").width()+"px";
+				div.style.height = $(ele).find("div").height()+"px";
+				$(div).css({"background":"rgba(0,0,0,0.35)","position":"absolute","display":"none","top":"0"});
+			var button1 = document.createElement("div");
+			var button2 = document.createElement("div");
+			var button3 = document.createElement("div");
+			var button4 = document.createElement("div");
+			$(button1).append("<img src='' /><span>项目阶段</span>")
+			$(button2).append("<img src='' /><span>项目阶段</span>")
+			$(button3).append("<img src='' /><span>项目阶段</span>")
+			$(button4).append("<img src='' /><span>项目阶段</span>")
+			$(div).append(button1).append(button2).append(button3).append(button4)
+			$(ele).append(div);
+			
+			$(ele).on("mouseenter",function(e){				
+					$(div).show();
+					testAnim($(div),"fadeInDown",function(){$(div).show();})	 												
+			});
+			$(ele).on("mouseleave",function(e){
+					testAnim($(div),"fadeOutUp",function(){
+						$(div).hide();
+					})
+					
+			})
+		}
+		function testAnim(ele,x,fun) {
+	    $(ele).removeClass().addClass(x + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+	      	$(this).removeClass();
+	      	fun();
+	    });
+	  };
+		adddiv($('#fadeInDown'));
+	</script>
+</html>
