@@ -482,9 +482,9 @@ var pinyin = (function (){
   	  var regChinese = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
       escapedSearchText = searchText.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");     
  	  //判断是否是汉字
-      console.log("搜索词"+escapedSearchText)
+      //console.log("搜索词"+escapedSearchText)
    	  if(regChinese.test(escapedSearchText)){
-   		  console.log("不是拼音")
+   		  //console.log("不是拼音")
       	  ispinyin = false;
       }
       zregex = new RegExp(escapedSearchText, 'i');
