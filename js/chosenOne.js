@@ -473,7 +473,7 @@ var pinyin = (function (){
     };
 
     AbstractChosen.prototype.winnow_results = function() {
-      var escapedSearchText, option, regex, results, results_group, searchText, startpos, text, zregex, _i, _len, _ref, ispinyin;
+      var escapedSearchText, option, regex, results, results_group, searchText, startpos, text, zregex, _i, _len, _ref, ispinyin,pinyinType;
       this.no_results_clear();
       results = 0;
       searchText = this.get_search_text();
@@ -508,16 +508,20 @@ var pinyin = (function (){
           }
           option.search_text = option.group ? option.label : option.html;
           if (!(option.group && !this.group_search)) {
-            option.search_match = this.search_string_match(option.search_text, regex,ispinyin);
+          	var search_ojbect = this.search_string_match(option.search_text, regex,ispinyin)
+            option.search_match = search_ojbect.value;
+            pinyinType = search_ojbect.type;
             if (option.search_match && !option.group) {
               results += 1;
             }
             if (option.search_match) {
               if (searchText.length) {
                // startpos = option.search_text.search(zregex);
-                startpos = this. search_string_chinese(option.search_text,zregex,ispinyin);
-                text = option.search_text.substr(0, startpos + searchText.length) + '</em>' + option.search_text.substr(startpos + searchText.length);
-                option.search_text = text.substr(0, startpos) + '<em>' + text.substr(startpos);
+                startpos = this. search_string_chinese(option.search_text,zregex,ispinyin,pinyinType);
+                //text = option.search_text.substr(0, startpos + searchText.length) + '</em>' + option.search_text.substr(startpos + searchText.length);
+                //option.search_text = text.substr(0, startpos) + '<em>' + text.substr(startpos);
+                text = option.search_text.substr(0, startpos + searchText.length)  + option.search_text.substr(startpos + searchText.length);
+                option.search_text = text.substr(0, startpos) + text.substr(startpos);
               }
               if (results_group != null) {
                 results_group.group_match = true;
@@ -546,40 +550,61 @@ var pinyin = (function (){
     };
 
     AbstractChosen.prototype.search_string_match = function(search_string, regex,ispinyin) {
-      var part, parts, _i, _len;
+      var part, parts, _i, _len,search_string_full = "";
       //这里如果开启按拼音匹配 并且搜索词是拼音
       if(this.search_pinyin&&ispinyin){
       	var regChinese = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
       	 //判断是否是汉字
       	if(regChinese.test(search_string)){
       		  //转换成拼音首字母大写
-      		  search_string =pinyin.getCamelChars(search_string);
-      		  //console.log(search_string);
+      		  search_string_full = pinyin.getFullChars(search_string);
+      		  search_string = pinyin.getCamelChars(search_string);
+      		  
+      		  console.log(search_string);
+      		  console.log(search_string_full);
       	}     	
       }
       if (regex.test(search_string)) {
-        return true;
+        return {"value":true,"type":"Camel"};
       } else if (this.enable_split_word_search && (search_string.indexOf(" ") >= 0 || search_string.indexOf("[") === 0)) {
         parts = search_string.replace(/\[|\]/g, "").split(" ");
         if (parts.length) {
           for (_i = 0, _len = parts.length; _i < _len; _i++) {
             part = parts[_i];
             if (regex.test(part)) {
-              return true;
+              return {"value":true,"type":"Camel"};
             }
           }
         }
       }
+      if (regex.test(search_string_full)) {
+        return {"value":true,"type":"Full"};
+      } else if (this.enable_split_word_search && (search_string_full.indexOf(" ") >= 0 || search_string_full.indexOf("[") === 0)) {
+        parts = search_string_full.replace(/\[|\]/g, "").split(" ");
+        if (parts.length) {
+          for (_i = 0, _len = parts.length; _i < _len; _i++) {
+            part = parts[_i];
+            if (regex.test(part)) {
+              return {"value":true,"type":"Full"};
+            }
+          }
+        }
+      }
+      return {"value":false,"type":""};
     };
-    AbstractChosen.prototype.search_string_chinese = function(search_string,regex,ispinyin){
+    AbstractChosen.prototype.search_string_chinese = function(search_string,regex,ispinyin,type){
     	 //这里如果开启按拼音匹配
       if(this.search_pinyin&&ispinyin){
       	var regChinese = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
       	 //判断是否是汉字
       	if(regChinese.test(search_string)){
       		  //转换成拼音首字母大写
-      		  search_string =pinyin.getCamelChars(search_string);
-      		  //console.log(search_string);
+      		  if(type == "Camel"){
+      		  	search_string =pinyin.getCamelChars(search_string);
+      		  }else{
+      		  	search_string =pinyin.getFullChars(search_string);
+      		  }    		  
+       		  //console.log(search_string);
       	}
       }
      	return  search_string.search(regex);
