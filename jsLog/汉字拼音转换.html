@@ -11,7 +11,9 @@
 			输入汉字：
 			<input type="text"  value=""/>			
 			<button>转换</button>	
-			转换结果：<input type="text" value="" />
+			转换结果首字母：<input type="text" value="" />
+			
+			转换结果全拼：<input  id="full" type="text" value="" />
 		</div>
 	</body>
 	<script>
@@ -20,12 +22,14 @@
 		$("button").on("click",function(){
 			var value = $(this).prev("input").val()
 			//;
+		
 			//一个是将汉字翻译为拼音，其中每一个字的首字母大写；  
 			var  valueAll = pinyin.getFullChars(value);
-			//一个是可以将每一个字的拼音的首字母提取出来，是大写的形式。
+		    //一个是可以将每一个字的拼音的首字母提取出来，是大写的形式。
 			var  valueFirst =pinyin.getCamelChars(value);
 			
 			$(this).next("input").val(valueFirst);
+			$("#full").val(valueAll);
 		})
 	})
 	</script>
