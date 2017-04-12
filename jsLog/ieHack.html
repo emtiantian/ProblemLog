@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+	.title-content{
+		width: 100px;
+		height: 100px;	
+		background: red;	
+		background: blue\9;	/*ie 6-10*/
+	}
+	@media all and (-ms-high-contrast:none)
+     {
+     .title-content{background: blue;	}/* IE10 */
+     *::-ms-backdrop, .title-content { background: blue;} /* IE11 */
+     }
+	</style>
+	<body>
+		<div class="content">
+			
+		</div>
+	</body>
+</html>

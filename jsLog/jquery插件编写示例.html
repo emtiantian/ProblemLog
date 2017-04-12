@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../common/js/jquery-1.8.3.min.js" ></script>
+		<script type="text/javascript" src="../js/jqueryPlugInTest.js" ></script>
+	</head>
+	<body>
+		<div id = "test1"  name = "null" >
+			点击测试
+		</div>
+	</body>
+	<script>
+		$(function(){2
+			$("#test1").changeStyle("red");			
+//			这里改变html的变化在 chrome sources中并不能体现出来
+			$("#test1").changeName("改变name");
+			
+			$("#test1").on("click",function(){
+//				这一行不会起作用 应该是在调用jquery的方法返回的this 对象仍然是jqeury原生对象
+//				this.changeName("改变name1")
+//				这种使用方式可以 但是再一次调用 上面定义的方法showChange 的时候 仍然是上面的问题 
+//				在定义的时候 即使使用return $(this); 也是不行 这里的问题应该在阅读jqeury源码的时候 注意原因
+//				$(this).changeName("改变name1").showChange(function(e){
+//					console.log($(this).attr("name"));
+//				});
+//				改为这样的使用方式 依然不行 应该是在匿名函数中传参的时候 出现问题
+//				$(this).changeName("改变name1")
+//				$(this).showChange(function($(this)){
+//					console.log($(this).attr(name));
+//				});
+			})
+			
+			
+		})
+		
+	</script>
+</html>

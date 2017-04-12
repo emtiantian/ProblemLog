@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+	function ArgTest1(a, b){
+		var i, s = "The ArgTest function expected ";
+		var numargs = arguments.length;     // 获取被传递参数的数值。
+		var expargs = ArgTest1.length;       // 获取期望参数的数值。
+		if (expargs < 2)
+		   s += expargs + " argument. ";
+		else
+		   s += expargs + " arguments. ";
+		if (numargs < 2)
+		   s += numargs + " was passed.";
+		else
+		   s += numargs + " were passed.";
+		s += "\n\n"
+		for (i =0 ; i < numargs; i++){      // 获取参数内容。
+		s += "  Arg " + i + " = " + arguments[i] + "\n";
+		}
+		return(s);                          // 返回参数列表。
+	}
+	function ArgTest2(){
+		var i, s, numargs = arguments.length;
+		s = numargs;  
+		if (numargs < 2)
+		   s += " argument was passed to ArgTest. It was ";
+		else
+		   s += " arguments were passed to ArgTest. They were " ;
+		for (i = 0; i < numargs; i++)
+		   {
+		      s += arguments[i] + " ";
+		   }
+		return(s);
+	}
+	function factorial(n){
+		if (n <= 0)
+		return 1;
+		else
+		  return n * arguments.callee(n - 1)
+	}
+	console.log(ArgTest1(1,2))
+	console.log(ArgTest2())
+	console.log(factorial(3));
+	//print(factorial(3));
+	
+	</script>
+</html>
