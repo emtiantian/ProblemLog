@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		$.ajax({
+			type: "get",
+			timeout: 1000,
+			url: ,
+			async: true,
+			data: "",
+			dataType: "json",
+			success: function(data) {
+
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {	
+				console.log("ajax出错"+XMLHttpRequest.status+"-"+XMLHttpRequest.readyState+"-"+textStatus+"-"+errorThrown);
+				//				readyState存着XMLHttpRequest的状态，
+				//				 0: 请求未初始化
+				//				 1: 服务器连接已建立
+				//				 2: 请求已接收
+				//				 3: 请求处理中
+				//				 4: 请求已完成，且响应已就绪
+//				0 － （未初始化）还没有调用send()方法
+//
+//				1 － （载入）已调用send()方法，正在发送请求
+//				
+//				2 － （载入完成）send()方法执行完成，已经接收到全部响应内容
+//				
+//				3 － （交互）正在解析响应内容
+//				
+//				4 － （完成）响应内容解析完成，可以在客户端调用了
+
+				//status == 0 readyState == 0 可能由以下问题引发
+				//		   url不存在
+				//		   url不可达 
+				//		   发送了跨域请求 
+				//		   数据格式错 
+				//		   ajax在完成之前请求已经被取消（ajax请求没有发出） 
+				//   eg：页面已经跳转或跳转太快、浏览器输入新的url、按钮立即新的点击等
+			},
+			
+			complete: function(XMLHttpRequest, status) { //请求完成后最终执行参数
+				　　　　
+				if(status == 'timeout') { //超时,status还有success,error等值的情况
+					　　　　
+					ajaxTimeoutMessage();　　　　　　
+				}　　
+			}
+		});
+
+	
+	</script>
+</html>
