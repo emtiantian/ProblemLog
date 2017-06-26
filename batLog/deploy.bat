@@ -7,11 +7,7 @@ set jarPath=C:\Program Files\Java\jdk1.8.0_91\bin\jar.exe
 :: 项目名称
 set appName=mispre.war 
 :: rar 位置 在c盘搜索 WinRAR
-set rar=C:\Program Files (x86)\WinRAR\
-:: tomcat 所在磁盘d
-set tomcatPan=D:
-:: tomcat的bin文件夹
-set tomcatBin=D:\public\tomcat\apache-tomcat-7.0.69\bin\
+set rar=C:\Program Files (x86)\WinRAR\Rar.exe
 :: tomcat文件夹放置地址
 set webapps=D:\public\tomcat\apache-tomcat-7.0.69\webapps
 :: 新的war文件地址
@@ -31,31 +27,20 @@ echo backup-dir：%backup-dir%
 echo -------------------------------- 
 
 if not exist %backup-dir% ( 
-
 mkdir %backup-dir% 
-
 )
-:: 停止tomcat
-::call %tomcatBin%shutdown.bat
 ::复制到备份文件夹 
 xcopy %webapps% %backup-dir% /i  /e 
 ::echo copy 
 ::pause
 ::压缩备份文件
-cd %rar% 
-Rar.exe  a -df  %backfile%backup-%ymd%.rar   %backup-dir% 
+call  "%rar% " a -df  %backfile%backup-%ymd%.rar   %backup-dir% 
 echo rar 
 pause
 ::删除现有文件 不包括当前文件夹
 rd /s /q %webapps%
 ::echo  remove tomcat  webapps
 ::pause 
-
-rem::这个方法的问题在于 rar 不能解析war
-rem::替换war中的配置文件 没有找到替换方法那么先删除然后添加进去就ok了~
-::cd %rar% 
-::Rar.exe a -ep -o+  C:\Users\0\Desktop\war\testRarReplace\mispre.war C:\Users\0\Desktop\war\testRarReplace\config\*
-
 ::使用jar 解压并且替换
 ::移动新的文件到指定tomcat 
 xcopy  /q /s %newfile%  %webapps%\
@@ -68,10 +53,8 @@ call "%jarPath%" -xvf %webapps%\%appName%
 del /s /q %webapps%\%appName%
 ::echo unzip  %appName%
 ::pause 
-xcopy /q /s   %replacePath%  %webapps%\mispre\
+xcopy /q /s   %replacePath%  %webapps%\ROOT\WEB-INF\
 ::echo replace config
 ::pause 
 echo ok ~!  you can startup tomcat
 pause 
-::启动tomcat
-::call %tomcatBin%startup.bat
