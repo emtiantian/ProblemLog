@@ -35,12 +35,14 @@ xcopy %webapps% %backup-dir% /i  /e
 ::pause
 ::压缩备份文件
 call  "%rar% " a -df  %backfile%backup-%ymd%.rar   %backup-dir% 
-echo rar 
-pause
+::echo rar 
+::pause
+
 ::删除现有文件 不包括当前文件夹
 rd /s /q %webapps%
 ::echo  remove tomcat  webapps
 ::pause 
+
 ::使用jar 解压并且替换
 ::移动新的文件到指定tomcat 
 xcopy  /q /s %newfile%  %webapps%\
@@ -53,7 +55,7 @@ call "%jarPath%" -xvf %webapps%\%appName%
 del /s /q %webapps%\%appName%
 ::echo unzip  %appName%
 ::pause 
-xcopy /q /s   %replacePath%  %webapps%\ROOT\WEB-INF\
+xcopy /q /s /y  %replacePath%  %webapps%\WEB-INF\
 ::echo replace config
 ::pause 
 echo ok ~!  you can startup tomcat

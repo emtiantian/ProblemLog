@@ -11,4 +11,12 @@
 ```
 set appName=mispre.war 
 ```
-3. 
+3. rar _winRar 软件位置（在c盘搜索WinRAR)_
+```
+set rar=C:\Program Files (x86)\WinRAR\Rar.exe
+```
+4. webapps _tomcat webapps 文件夹位置_
+```
+set webapps=D:\public\tomcat\apache-tomcat-7.0.69\webapps
+```
+5. 
