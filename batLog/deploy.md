@@ -19,4 +19,15 @@ set rar=C:\Program Files (x86)\WinRAR\Rar.exe
 ```
 set webapps=D:\public\tomcat\apache-tomcat-7.0.69\webapps
 ```
-5. 
+5.  新的war文件地址   
+```
+set newfile=C:\Users\0\Desktop\war\testRarReplace\mispre.war
+```
+6. 备份地址   
+```
+set backfile=D:\public\tomcat\backfile\
+```
+7. 需替换的配置文件的位置    
+```
+set replacePath=C:\Users\0\Desktop\war\config\*
+```
