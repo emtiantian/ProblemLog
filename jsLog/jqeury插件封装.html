@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../common/js/jquery-1.8.3.min.js" ></script>
+	</head>
+	<body>
+		<div id="code">
+		  <p>/**</p>
+		  <p>*2014-2-12</p>
+		  <p>*代码自动闪烁输入</p>
+		  <p>*/</p>
+		  2014-2-14,I want to say:<br />
+		  Baby, I love you forever!<br />
+		</div>
+	</body>
+	<script>
+		function typewriter(id){
+		  var $ele = document.getElementById(id);
+		  var str = $ele.innerHTML, progress = 0;
+		  $ele.innerHTML = '';
+		  var timer = setInterval(function() {
+		    var current = str.substr(progress, 1);
+		    if (current == '<') {
+		      progress = str.indexOf('>', progress) + 1;
+		    } else {
+		      progress++;
+		    }
+		    var a = (progress & 1 ? '_' : '');
+		    
+		    $ele.innerHTML =str.substring(0, progress) + a;
+		    if (progress >= str.length) {
+		      clearInterval(timer);
+		    }
+		  }, 75);
+		}
+		//第一种封装 最简单的jquery封装
+		;(function($,ele,undefined){
+			var pluginName= "writerAnimation";
+			var defaults ={
+				interval : 75 
+			}
+			function plugin (){
+				
+			}
+		})(jQuery,ele);
+		$(function(){
+			typewriter("code");
+		});
+	</script>
+</html>

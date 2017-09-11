@@ -50,10 +50,47 @@
 		   alert(prop);  
 		      
 		}  
-		var t = test();  
-		var c = 3*1000000000
-		var G = 58;
-		var E =G/9.8*c*c
 		
+//		var name = "The Window";
+//		　　var object = {
+//		　　　　name : "My Object",
+//		　　　　getNameFunc : function(){
+//		　　　　　　return function(){
+//		　　　　　　　　return this.name;
+//		　　　　　　};
+//		　　　　}
+//		　　};
+//		　　alert(object.getNameFunc()());
+//		var name = "The Window";	
+//		　　var object = {
+//		　　　　name : "My Object",
+//		　　　　getNameFunc : function(){
+//		　　　　　　var that = this;
+//		　　　　　　return function(){
+//		　　　　　　　　return that.name;
+//		　　　　　　};
+//		　　　　}
+//		　　};
+//		　　alert(object.getNameFunc()());
+//		function test(a){
+//			
+//			return function(){
+//				return function(){
+//					return a;
+//				};
+//			}
+//		}
+//		var a = "1234";
+//		alert(test("123")()());
+		var name = "The Window";
+		　　var object = {
+		　　　　name : "My Object",
+		　　　　getNameFunc : function(){ 
+//		　　　　　　return function(){
+		　　　　　　　　return name;
+//		　　　　　　};
+		　　　　}
+		　　};
+		　　alert(object.getNameFunc());
 	</script>
 </html>

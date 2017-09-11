@@ -3,7 +3,7 @@
 		return this;
 	}
 	$.fn.showChange = function(fun) {
-		fun();
+		fun(this);
 		return this;
 	}
 	$.fn.changeStyle = function(colorStr) {

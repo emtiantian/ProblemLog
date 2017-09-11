@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div>click me to start event flow</div>
+	</body>
+		<script>
+		// 捕获阶段 window
+		window.addEventListener('click', function() {
+			alert(1);
+		}, true);
+		
+		// 捕获阶段 document
+		document.addEventListener('click', function() {
+			alert(2);
+		}, true);
+		
+		// 捕获阶段 html
+		document.documentElement.addEventListener('click', function() {
+			alert(3);
+		}, true);
+		
+		// 捕获阶段 body
+		document.body.addEventListener('click', function() {
+			alert(4);
+		}, true);
+		
+		// 捕获阶段 div
+		document.querySelector('div').addEventListener('click', function() {
+			alert(5);
+		}, true);
+		
+		// 冒泡阶段 div
+		document.querySelector('div').addEventListener('click', function() {
+			alert(6);
+		}, false);
+		
+		// 冒泡阶段 body
+		document.body.addEventListener('click', function() {
+			alert(7);
+		}, false);
+		
+		// 冒泡阶段 html
+		document.documentElement.addEventListener('click', function() {
+			alert(8);
+		}, false);
+		
+		// 冒泡阶段 document
+		document.addEventListener('click', function() {
+			alert(9);
+		}, false);
+		
+		// 冒泡阶段 window
+		window.addEventListener('click', function() {
+			alert(10);
+		}, false);
+		
+		</script>
+</html>
