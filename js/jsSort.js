@@ -75,11 +75,23 @@ class mytime {
 
 }
 
-
+/**
+ *
+ * @param num
+ * @returns {Array}
+ */
+function createArr (num,min,max) {
+  let arr = []
+  while (num>0){
+    arr.push( parseInt((max-min)*(Math.random()))+min)
+    num --
+  }
+  return arr
+}
 
 /**
  * 冒泡排序
- * 时间复杂度O(n²) 空间复杂度 O(1) 最优 O(n) 稳定
+ * 时间复杂度O(n²)  最优 O(n) 空间复杂度 O(1) 稳定
  * 最优需要改进代码增加标示位 最优排序是 数组原本就是顺序
  * bubbleSort1 内部循环应该去掉对数组最后一位的判断
  * 算法描述：
@@ -88,6 +100,7 @@ class mytime {
  * 再次循环上述判断，比较到lenght -1 位
  * 直到排序完成完成
  */
+
 /**
  *
  * @param arr
@@ -122,12 +135,12 @@ function bubbleSort1 (arr) {
  */
 function bubbleSort2 (arr) {
   let times
-  var len = arr.length
+  let len = arr.length
   times = 0
-  for (var i = 0; i < len; i++) {
-    for (var j = 0; j < len - 1 - i; j++) {
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < len - 1 - i; j++) {
       if (arr[j] > arr[j + 1]) {        // 相邻元素两两对比
-        var temp = arr[j + 1]        // 元素交换
+        let temp = arr[j + 1]        // 元素交换
         arr[j + 1] = arr[j]
         arr[j] = temp
       }
@@ -163,6 +176,7 @@ function bubbleSort3 (arr) {
   console.log('执行次数' + times)
   return arr
 }
+
 /**
  * 最优bubblesort
  * @param arr
@@ -174,7 +188,7 @@ function bubbleSort (arr) {
   let swap = false
   for (let j = 0; j < len; j++) {
     //len-j-1 不比较已经排好序的部分和本次排序的最后一位
-    for (let i = 0; i < len -j- 1; i++) {
+    for (let i = 0; i < len - j - 1; i++) {
       if (arr[i] > arr[i + 1]) {
         let tmp = arr[i + 1]
         arr[i + 1] = arr[i]
@@ -190,19 +204,131 @@ function bubbleSort (arr) {
 }
 
 /**
+ * 快速排序
+ * 时间复杂度 最优O(n²) 最差O(n²) 空间复杂度 O(1) 稳定
+ * 算法描述：
+ * 每次寻找最小的（或者最大的）下标  循环n-1 次即可得到有序数组
  *
  */
 
-function selectSort1 () {
-  
+/**
+ * 自己实现版本
+ * 出现的问题：排序算法是记录最小数组的下标并不是其中的值，在第一层for循环之后才应该交换数组的值
+ * @param arr
+ * @returns {*}
+ */
+function selectionSort1 (arr) {
+  let tmp = ''
+  let arrlength = arr.length
+  let nowIndex = ''
+  let times = 0
+  for (let i = 0; i < arrlength - 1; i++) {
+    nowIndex = i
+    for (let j = i + 1; j < arrlength; j++) {
+      if (arr[j] < arr[nowIndex]) {
+        nowIndex = j
+      }
+      times++
+    }
+    tmp = arr[i]
+    arr[i] = arr[nowIndex]
+    arr[nowIndex] = tmp
+  }
+  console.log("执行次数"+times)
+  return arr
 }
 
+/**
+ * 网上版本
+ * @param arr
+ * @returns {*}
+ */
+function selectionSort2(arr) {
+  let len = arr.length;
+  let minIndex, temp,times=0;
 
-
-
+  for (let i = 0; i < len - 1; i++) {
+    minIndex = i;
+    for (let j = i + 1; j < len; j++) {
+      if (arr[j] < arr[minIndex]) {     // 寻找最小的数
+        minIndex = j;                 // 将最小数的索引保存
+      }
+      times++
+    }
+    temp = arr[i];
+    arr[i] = arr[minIndex];
+    arr[minIndex] = temp;
+  }
+  console.log("执行时间"+times);
+  return arr;
+}
 
 /**
- * test
+ * 插入排序
+ * 时间复杂度  最差O(n²) 最好O(n) 空间复杂度 O(1) 稳定
+ * 算法描述：第一位数视为有序，对比下一位，较大的放置在右面，依次右向左比较 重复上述步骤n-1次即为有序
+ */
+/**
+ *
+ * @param arr
+ * @returns {*}
+ */
+function insertionSort1(arr){
+  let len = arr.length
+  let i = 1
+  let j = 0
+  let tmp = 0
+  let current = 0
+  let times = 0
+  for(i;i<len;i++){
+    j=i-1
+    current = arr[i]
+    for(j;j>0;j--){
+      if(arr[j] < current){
+
+          continue
+      }else{
+        tmp = arr[j]
+        arr[j] = current
+        arr[j+1] = tmp
+      }
+      times++
+    }
+  }
+  console.log("执行次数"+times)
+  return arr
+}
+
+/**
+ *
+ * @param arr
+ * @returns {*}
+ */
+function insertionSort2(arr) {
+  var len = arr.length;
+  var preIndex, current,times=0;
+  for (var i = 1; i < len; i++) {
+    preIndex = i - 1;
+    current = arr[i];
+    while (preIndex >= 0 && arr[preIndex] > current) {
+      arr[preIndex + 1] = arr[preIndex];
+      preIndex--;
+      times++
+    }
+    arr[preIndex + 1] = current;
+  }
+  console.log("执行次数"+times);
+  return arr;
+}
+
+/**
+ * test 以下都是测试
+ */
+
+/**
+ * symbol 模式 创建私有变量
+ * @type {symbol}
+ * @private
  */
 const _startTime = Symbol('startTime')
 const _endTime = Symbol('endTime')
@@ -244,35 +370,53 @@ function testMytime () {
  *
  * @param sort
  * @param arr
+ * @param Boolean
  */
-function main (sort, arr) {
+function main (sort, arr,showArr=false) {
   let _time = new mytime()
 
   _time.strat()
   //用于数组的深度拷贝 使测试代码可以一起测试
   let _newArray = sort(arr.concat())
   _time.end()
-  // console.dir(_newArray)
+  if(showArr){
+    console.dir(_newArray)
+  }
+
   console.log('执行时间' + _time.getTime())
 }
 
 const bobbleOptimumArr = [1, 2, 3, 4, 5]
+// 冒泡排序
 // 执行时间在太短的情况下并不准确
 // main(bubbleSort1, Myarrry)
 // main(bubbleSort2, Myarrry)
 // main(bubbleSort3, Myarrry)
 // main(bubbleSort, Myarrry)
 
-main(bubbleSort1, bobbleOptimumArr)
-main(bubbleSort2, bobbleOptimumArr)
-main(bubbleSort3, bobbleOptimumArr)
-main(bubbleSort, bobbleOptimumArr)
+// main(bubbleSort1, bobbleOptimumArr)
+// main(bubbleSort2, bobbleOptimumArr)
+// main(bubbleSort3, bobbleOptimumArr)
+// main(bubbleSort, bobbleOptimumArr)
 
+// 选择排序
+// main(selectionSort1, Myarrry)
+// main(selectionSort2, Myarrry)
 
+// 查看初始化占用时间为3毫秒
+// let  randowArr = createArr(10000,1,100);
+// main(selectionSort2, randowArr)
+// main(selectionSort1, randowArr)
 
+// 执行时间49995000
+// 执行时间94
+// 执行次数49995000
+// 执行时间91
 
-
-
+// 插入排序
+const testArr = [1,2,4,5,6,88,9,20,18,7,10,9]
+main(insertionSort1,testArr,true)
+main(insertionSort2,testArr,true)
 
 
 
