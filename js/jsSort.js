@@ -19,25 +19,39 @@
  *
  */
 
-/**
- * 演示用随机数
- * @type {string}
- */
-let string = '133 725 473 646 98 599 851 671 281' +
-  ' 944 60 191 978 270 624 736 508 321 275 737 713 709 987 824 420 328 417 190 ' +
-  '781 179 156 742 819 202 164 422 657 931 43 546 430 261 475 490 304 358 825 729 159 962 ' +
-  '273 134 813 669 75 64 896 228 258 783 248 51 1 537 887 881 65 329 507 403 171 840 932 366' +
-  ' 489 577 791 391 13 561 319 739 600 957 517 294 661 990 541 885 267 61 268 567 444 966 682 ' +
-  '357 263 998 995 168 360 794 797 821 151 861 643 625 675 654 306 947 757 900 548 513 759 109 ' +
-  '146 404 31 347 776 441 663 901 498 471 913 528 858 376 3 950 933 335 432 53 785 155 219 938 569 ' +
-  '808 906 50 105 2 942 163 232 313 879 407 551 731 158 367 356 524 856 530 97 196 768 635 889 997 346 ' +
-  '743 755 583 453 461 107 523 617 793 427 570 604 439 536 752 674 149 598 425 477 113 402 817 132 57 188 868 101 456'
 
 /**
- * 演示用数组
- * @type {string[]}
+ * 判断是否有序
+ * @param array
+ * @returns {boolean}
  */
-let Myarrry = string.split(' ')
+function isOrdered (array) {
+  let length = array.length
+  let i = 0
+  for (i; i < length; i++) {
+    if (array[i] > array[i + 1]) {
+      return false
+    }
+  }
+  return true
+}
+
+/**
+ * 演示用随机数
+ * @param max
+ * @param min
+ * @param num
+ * @returns {Array}
+ */
+function createArray (max, min, num) {
+  let arr = [],
+    i = 0
+  for (i; i < num; i++) {
+    arr.push(Math.round(Math.random()*(max-min)+min))
+  }
+  return arr
+}
+// console.dir(createArray(1000,100,10));
 
 /**
  * 计算程序执行时间
@@ -75,23 +89,12 @@ class mytime {
 
 }
 
-/**
- *
- * @param num
- * @returns {Array}
- */
-function createArr (num,min,max) {
-  let arr = []
-  while (num>0){
-    arr.push( parseInt((max-min)*(Math.random()))+min)
-    num --
-  }
-  return arr
-}
+
 
 /**
  * 冒泡排序
- * 时间复杂度O(n²)  最优 O(n) 空间复杂度 O(1) 稳定
+ * 时间复杂度O(n²)  最优 O(n)
+ * 空间复杂度 O(1) 稳定
  * 最优需要改进代码增加标示位 最优排序是 数组原本就是顺序
  * bubbleSort1 内部循环应该去掉对数组最后一位的判断
  * 算法描述：
@@ -205,7 +208,8 @@ function bubbleSort (arr) {
 
 /**
  * 快速排序
- * 时间复杂度 最优O(n²) 最差O(n²) 空间复杂度 O(1) 稳定
+ * 时间复杂度 最优O(n²) 最差O(n²)
+ * 空间复杂度 O(1) 稳定
  * 算法描述：
  * 每次寻找最小的（或者最大的）下标  循环n-1 次即可得到有序数组
  *
@@ -234,7 +238,7 @@ function selectionSort1 (arr) {
     arr[i] = arr[nowIndex]
     arr[nowIndex] = tmp
   }
-  console.log("执行次数"+times)
+  console.log('执行次数' + times)
   return arr
 }
 
@@ -243,29 +247,30 @@ function selectionSort1 (arr) {
  * @param arr
  * @returns {*}
  */
-function selectionSort2(arr) {
-  let len = arr.length;
-  let minIndex, temp,times=0;
+function selectionSort2 (arr) {
+  let len = arr.length
+  let minIndex, temp, times = 0
 
   for (let i = 0; i < len - 1; i++) {
-    minIndex = i;
+    minIndex = i
     for (let j = i + 1; j < len; j++) {
       if (arr[j] < arr[minIndex]) {     // 寻找最小的数
-        minIndex = j;                 // 将最小数的索引保存
+        minIndex = j                 // 将最小数的索引保存
       }
       times++
     }
-    temp = arr[i];
-    arr[i] = arr[minIndex];
-    arr[minIndex] = temp;
+    temp = arr[i]
+    arr[i] = arr[minIndex]
+    arr[minIndex] = temp
   }
-  console.log("执行时间"+times);
-  return arr;
+  console.log('执行时间' + times)
+  return arr
 }
 
 /**
  * 插入排序
- * 时间复杂度  最差O(n²) 最好O(n) 空间复杂度 O(1) 稳定
+ * 时间复杂度  最差O(n²) 最好O(n)
+ * 空间复杂度 O(1) 稳定
  * 算法描述：第一位数视为有序，对比下一位，较大的放置在右面，依次右向左比较 重复上述步骤n-1次即为有序
  */
 /**
@@ -273,53 +278,64 @@ function selectionSort2(arr) {
  * @param arr
  * @returns {*}
  */
-function insertionSort1(arr){
+function insertionSort1 (arr) {
   let len = arr.length
   let i = 1
   let j = 0
   let tmp = 0
   let current = 0
   let times = 0
-  for(i;i<len;i++){
-    j=i-1
+  for (i; i < len; i++) {
+    j = i - 1
     current = arr[i]
-    for(j;j>0;j--){
-      if(arr[j] < current){
-
-          continue
-      }else{
+    for (j; j > 0; j--) {
+      if (arr[j] <= current) {
+        //这里有2点要注意对相等的值也不做比较直接跳出
+        //这里要使用break跳出当前循环而不是continue
+        break
+      } else {
         tmp = arr[j]
         arr[j] = current
-        arr[j+1] = tmp
+        arr[j + 1] = tmp
+        times++
       }
-      times++
     }
   }
-  console.log("执行次数"+times)
+  console.log('执行次数' + times)
   return arr
 }
 
 /**
- *
+ * 参考网站上的实现方式
  * @param arr
  * @returns {*}
  */
-function insertionSort2(arr) {
-  var len = arr.length;
-  var preIndex, current,times=0;
+function insertionSort2 (arr) {
+  var len = arr.length
+  var preIndex, current, times = 0
   for (var i = 1; i < len; i++) {
-    preIndex = i - 1;
-    current = arr[i];
+    preIndex = i - 1
+    current = arr[i]
+
     while (preIndex >= 0 && arr[preIndex] > current) {
-      arr[preIndex + 1] = arr[preIndex];
-      preIndex--;
+      arr[preIndex + 1] = arr[preIndex]
+      preIndex--
       times++
     }
-    arr[preIndex + 1] = current;
+    arr[preIndex + 1] = current
   }
-  console.log("执行次数"+times);
-  return arr;
+  console.log('执行次数' + times)
+  return arr
 }
+
+/**
+ * 希尔排序
+ * 时间复杂度 最差 O(n²) O(nlog²n)
+ * 空间复杂度
+ * 稳定性 不稳定
+ * 算法描述
+ * 参考 https://zh.wikipedia.org/wiki/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F
+ */
 
 /**
  * test 以下都是测试
@@ -372,14 +388,14 @@ function testMytime () {
  * @param arr
  * @param Boolean
  */
-function main (sort, arr,showArr=false) {
+function main (sort, arr, showArr = false) {
   let _time = new mytime()
 
   _time.strat()
   //用于数组的深度拷贝 使测试代码可以一起测试
   let _newArray = sort(arr.concat())
   _time.end()
-  if(showArr){
+  if (showArr) {
     console.dir(_newArray)
   }
 
@@ -414,9 +430,10 @@ const bobbleOptimumArr = [1, 2, 3, 4, 5]
 // 执行时间91
 
 // 插入排序
-const testArr = [1,2,4,5,6,88,9,20,18,7,10,9]
-main(insertionSort1,testArr,true)
-main(insertionSort2,testArr,true)
+// const testArr = [1,2,4,5,6,88,9,20,18,7,10,9]
+const testArr = [1, 2, 4, 5, 6, 88, 9, 20, 18, 7, 10, 9]
+main(insertionSort1, testArr, true)
+main(insertionSort2, testArr, true)
 
 
 

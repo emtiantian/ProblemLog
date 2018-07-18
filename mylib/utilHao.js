@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 (function(root, factory) {
     if (typeof module === 'object' && module.exports) {
         module.exports = root.document ?
@@ -35,7 +35,7 @@
 					 return o.toString(); 
 					}
 		//浏览器版本
-		browserVersionHao :function(){
+		browserVersionHao : function(){
 			var browserVersion = window.navigator.userAgent.toUpperCase();
 			var isOpera = browserVersion.indexOf("OPERA") > -1 ? true : false;
 			var isFireFox = browserVersion.indexOf("FIREFOX") > -1 ? true : false;
