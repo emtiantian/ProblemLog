@@ -19,7 +19,6 @@
  *
  */
 
-
 /**
  * 判断是否有序
  * @param array
@@ -47,10 +46,11 @@ function createArray (max, min, num) {
   let arr = [],
     i = 0
   for (i; i < num; i++) {
-    arr.push(Math.round(Math.random()*(max-min)+min))
+    arr.push(Math.round(Math.random() * (max - min) + min))
   }
   return arr
 }
+
 // console.dir(createArray(1000,100,10));
 
 /**
@@ -89,8 +89,6 @@ class mytime {
 
 }
 
-
-
 /**
  * 冒泡排序
  * 时间复杂度O(n²)  最优 O(n)
@@ -124,7 +122,7 @@ function bubbleSort1 (arr) {
     }
     length--
   }
-  console.log('执行次数' + times)
+  console.log('交换次数' + times)
   return arr
 }
 
@@ -150,7 +148,7 @@ function bubbleSort2 (arr) {
       times++
     }
   }
-  console.log('执行次数' + times)
+  console.log('交换次数' + times)
   return arr
 }
 
@@ -176,7 +174,7 @@ function bubbleSort3 (arr) {
     if (!swap) {break}
     len--
   }
-  console.log('执行次数' + times)
+  console.log('交换次数' + times)
   return arr
 }
 
@@ -202,12 +200,12 @@ function bubbleSort (arr) {
     }
     if (!swap) {break}
   }
-  console.log('执行次数' + times)
+  console.log('交换次数' + times)
   return arr
 }
 
 /**
- * 快速排序
+ * 选择排序
  * 时间复杂度 最优O(n²) 最差O(n²)
  * 空间复杂度 O(1) 稳定
  * 算法描述：
@@ -238,7 +236,7 @@ function selectionSort1 (arr) {
     arr[i] = arr[nowIndex]
     arr[nowIndex] = tmp
   }
-  console.log('执行次数' + times)
+  console.log('交换次数' + times)
   return arr
 }
 
@@ -269,14 +267,9 @@ function selectionSort2 (arr) {
 
 /**
  * 插入排序
-<<<<<<< HEAD
  * 时间复杂度  最差O(n²) 最好O(n)
  * 空间复杂度 O(1) 稳定
  * 算法描述：第一位数视为有序，对比下一位，较大的放置在右面，依次右向左比较 重复上述步骤n-1次即为有序
-=======
- * 时间复杂度  最差O(n²) 最好O(n) 空间复杂度 O(1) 稳定
- * 算法描述：第一个数视为有序，对比下一位，较大的放置在右面，依次右向左比较 重复上述步骤n-1次即为有序
->>>>>>> 04987eb8a6e7f2a5ed985da9bf067da2fc2f63bd
  */
 /**
  *
@@ -284,16 +277,17 @@ function selectionSort2 (arr) {
  * @returns {*}
  */
 function insertionSort1 (arr) {
-  let len = arr.length
-  let i = 1
-  let j = 0
-  let tmp = 0
-  let current = 0
-  let times = 0
+  let len = arr.length,
+    i = 1,
+    j = 0,
+    tmp = 0,
+    current = 0,
+    times = 0
   for (i; i < len; i++) {
     j = i - 1
     current = arr[i]
-    for (j; j > 0; j--) {
+    //这里应该详细考虑是否包含0的问题
+    for (j; j >= 0; j--) {
       if (arr[j] <= current) {
         //这里有2点要注意对相等的值也不做比较直接跳出
         //这里要使用break跳出当前循环而不是continue
@@ -306,7 +300,7 @@ function insertionSort1 (arr) {
       }
     }
   }
-  console.log('执行次数' + times)
+  console.log('交换次数' + times)
   return arr
 }
 
@@ -329,18 +323,81 @@ function insertionSort2 (arr) {
     }
     arr[preIndex + 1] = current
   }
-  console.log('执行次数' + times)
+  console.log('交换次数' + times)
   return arr
 }
 
 /**
  * 希尔排序
- * 时间复杂度 最差 O(n²) O(nlog²n)
- * 空间复杂度
+ * 时间复杂度 最差 O(n²) O(nlog²n) 平均 O(nlogn)
  * 稳定性 不稳定
  * 算法描述
+ * 希尔排序是变步长的插入排序，步长是影响效率的关键因素，只要是步长最后一步是1的都可以实现排序
+ * 最佳步长(1, 5, 19, 41, 109,...) 这个步长怎么算没找到
  * 参考 https://zh.wikipedia.org/wiki/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F
  */
+/**
+ * 自己实现版本
+ * @param arr
+ * @returns {*}
+ */
+function shellSort (arr) {
+  let len = arr.length,
+    temp,
+    gap = 1,
+    times = 0
+  //根据数据规模算出最大步长  这个算法是例子中的来源于《算法（第4版）》
+  while (gap < len / 3) {
+    gap = gap * 3 + 1
+  }
+  //根据步长进行插入排序
+  while (gap > 0) {
+    for (let i = gap; i < len; i++) {
+      temp = arr[i]
+      for (let j = i - gap; j >= 0; j -= gap) {
+        if (temp < arr[j]) {
+          arr[i] = arr[j]
+          arr[j] = temp
+        } else {
+          //找到位置之后不再比较
+          break
+        }
+        times++
+      }
+
+    }
+    gap = (gap - 1) / 3
+  }
+  console.log('交换次数：' + times)
+  return arr
+}
+
+/**
+ * 网上版本
+ * @param arr
+ * @returns {*}
+ */
+function shellSort1 (arr) {
+  var len = arr.length,
+    temp,
+    gap = 1,
+    times = 0
+  while (gap < len / 3) {          // 动态定义间隔序列
+    gap = gap * 3 + 1
+  }
+  for (gap; gap > 0; gap = Math.floor(gap / 3)) {
+    for (var i = gap; i < len; i++) {
+      temp = arr[i]
+      for (var j = i - gap; j > 0 && arr[j] > temp; j -= gap) {
+        arr[j + gap] = arr[j]
+        times++
+      }
+      arr[j + gap] = temp
+    }
+  }
+  console.log('交换次数：' + times)
+  return arr
+}
 
 /**
  * test 以下都是测试
@@ -394,8 +451,8 @@ function testMytime () {
  * @param Boolean
  */
 function main (sort, arr, showArr = false) {
-  let _time = new mytime()
-
+  let _time = new mytime(),
+    _isolder = '无序'
   _time.strat()
   //用于数组的深度拷贝 使测试代码可以一起测试
   let _newArray = sort(arr.concat())
@@ -403,8 +460,11 @@ function main (sort, arr, showArr = false) {
   if (showArr) {
     console.dir(_newArray)
   }
-
-  console.log('执行时间' + _time.getTime())
+  if (isOrdered(_newArray)) {
+    _isolder = '有序'
+  }
+  console.log('执行结果是否有序：' + _isolder)
+  console.log('执行时间：' + _time.getTime() + 'ms')
 }
 
 const bobbleOptimumArr = [1, 2, 3, 4, 5]
@@ -431,14 +491,17 @@ const bobbleOptimumArr = [1, 2, 3, 4, 5]
 
 // 执行时间49995000
 // 执行时间94
-// 执行次数49995000
+// 交换次数49995000
 // 执行时间91
 
 // 插入排序
 // const testArr = [1,2,4,5,6,88,9,20,18,7,10,9]
 const testArr = [1, 2, 4, 5, 6, 88, 9, 20, 18, 7, 10, 9]
-main(insertionSort1, testArr, true)
-main(insertionSort2, testArr, true)
-
-
+let testArr1 = createArray(1000, 100, 10000)
+// main(insertionSort1, testArr1, false)
+// main(insertionSort2, testArr1, false)
+// main(selectionSort1, testArr1, false)
+// main(bubbleSort,testArr1,false)
+main(shellSort, testArr, false)
+main(shellSort1, testArr, false)
 
