@@ -329,11 +329,11 @@ function insertionSort2 (arr) {
 
 /**
  * 希尔排序
- * 时间复杂度 最差 O(n²) O(nlog²n) 平均 O(nlogn)
+ * 时间复杂度 最差 O(n²) 最优O(nlog²n) 平均 O(nlogn)
  * 稳定性 不稳定
  * 算法描述
  * 希尔排序是变步长的插入排序，步长是影响效率的关键因素，只要是步长最后一步是1的都可以实现排序
- * 最佳步长(1, 5, 19, 41, 109,...) 这个步长怎么算没找到
+ * 最佳步长(1, 5, 19, 41, 109,...) 这个步长怎么算没找到   数据规模变化步长性能不同  有个问题交换次数多了时间竟然还短(这个可能是维基上说的主要是比较而不是交换)
  * 参考 https://zh.wikipedia.org/wiki/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F
  */
 /**
@@ -345,28 +345,35 @@ function shellSort (arr) {
   let len = arr.length,
     temp,
     gap = 1,
-    times = 0
-  //根据数据规模算出最大步长  这个算法是例子中的来源于《算法（第4版）》
+    times = 0,
+    min = -1
+  // 根据数据规模算出最大步长  这个算法是例子中的来源于《算法（第4版）》 并非最优 （gap*3+1 ）不如 （gap/2） 下取整
+  // 数据规模变化步长性能不同
   while (gap < len / 3) {
     gap = gap * 3 + 1
   }
+  // gap = Math.floor(len/2)
   //根据步长进行插入排序
   while (gap > 0) {
-    for (let i = gap; i < len; i++) {
+    for (let i = gap; i < len; i ++) {
       temp = arr[i]
-      for (let j = i - gap; j >= 0; j -= gap) {
+      for (let j = i - gap; j >= 0; j -=gap ) {
         if (temp < arr[j]) {
-          arr[i] = arr[j]
-          arr[j] = temp
-        } else {
-          //找到位置之后不再比较
+          arr[j+gap] = arr[j]
+          min = j
+          times++
+        }else{
           break
         }
-        times++
       }
-
+      if (min != -1) {
+        arr[min] = temp
+      }
+      min = -1
     }
     gap = (gap - 1) / 3
+    // gap = Math.floor(gap/2)
+
   }
   console.log('交换次数：' + times)
   return arr
@@ -381,23 +388,93 @@ function shellSort1 (arr) {
   var len = arr.length,
     temp,
     gap = 1,
-    times = 0
+    tiems = 0
   while (gap < len / 3) {          // 动态定义间隔序列
     gap = gap * 3 + 1
   }
   for (gap; gap > 0; gap = Math.floor(gap / 3)) {
     for (var i = gap; i < len; i++) {
       temp = arr[i]
-      for (var j = i - gap; j > 0 && arr[j] > temp; j -= gap) {
+      for (var j = i - gap; j >= 0 && arr[j] > temp; j -= gap) {
         arr[j + gap] = arr[j]
-        times++
+        tiems++
       }
       arr[j + gap] = temp
     }
   }
-  console.log('交换次数：' + times)
+  console.log('交换次数：' + tiems)
   return arr
 }
+
+/**
+ * 网上实现版本2
+ * @param arr
+ * @returns {*}
+ */
+function shellSort2 (arr) {
+  var len =arr.length,
+  gap = Math.floor(len/2),
+  times = 0 ;
+  while(gap!==0){
+    for(var i = gap;i<len;i++){
+      var temp = arr[i];
+      var j;
+      for(j=i-gap;j>=0&&temp<arr[j];j-=gap){
+        arr[j+gap] = arr[j];
+        times++
+      }
+      arr[j+gap] = temp;
+    }
+    gap=Math.floor(gap/2);
+  }
+  console.log("执行次数："+ times)
+  return arr;
+}
+
+function shellSort3 (arr) {
+    let len = arr.length;
+    let gap, i, temp;
+    var j
+    for(gap = Math.floor(len/2); gap > 0; gap =Math.floor(gap/2)) {
+      //插入排序简洁写法
+      for(i = gap; i < len; i++) {
+        temp= arr[i];
+        for(j = i-gap; j>=0 && arr[j]>temp; j-=gap)
+          arr[j+gap] = arr[j];
+        arr[j+gap] = temp;
+      }
+    }
+    return arr
+}
+
+/**
+ * 复制示例1 的方法 修改步长计算
+ * @param arr
+ * @returns {*}
+ */
+function shellSort4 (arr) {
+  var len = arr.length,
+    temp,
+    gap = 1,
+    tiems = 0
+  // while (gap < len / 3) {          // 动态定义间隔序列
+  //   gap = gap * 3 + 1
+  // }
+  gap = Math.floor( len/ 2)
+  for (gap; gap > 0; gap = Math.floor(gap / 2)) {
+    for (var i = gap; i < len; i++) {
+      temp = arr[i]
+      for (var j = i - gap; j >= 0 && arr[j] > temp; j -= gap) {
+        arr[j + gap] = arr[j]
+        tiems++
+      }
+      arr[j + gap] = temp
+    }
+  }
+  console.log('交换次数：' + tiems)
+  return arr
+}
+
 
 /**
  * test 以下都是测试
@@ -455,6 +532,7 @@ function main (sort, arr, showArr = false) {
     _isolder = '无序'
   _time.strat()
   //用于数组的深度拷贝 使测试代码可以一起测试
+  console.log('深度复制后的数组是否相等：' + arr.concat === arr)
   let _newArray = sort(arr.concat())
   _time.end()
   if (showArr) {
@@ -463,6 +541,7 @@ function main (sort, arr, showArr = false) {
   if (isOrdered(_newArray)) {
     _isolder = '有序'
   }
+
   console.log('执行结果是否有序：' + _isolder)
   console.log('执行时间：' + _time.getTime() + 'ms')
 }
@@ -496,12 +575,19 @@ const bobbleOptimumArr = [1, 2, 3, 4, 5]
 
 // 插入排序
 // const testArr = [1,2,4,5,6,88,9,20,18,7,10,9]
-const testArr = [1, 2, 4, 5, 6, 88, 9, 20, 18, 7, 10, 9]
-let testArr1 = createArray(1000, 100, 10000)
+const testArr = [1, 2, 4, 5, 6, 7, 10, 100, 100,88,99,102,3,78,44,23]
+let testArr1 = createArray(10000000, 1, 9000000)
 // main(insertionSort1, testArr1, false)
 // main(insertionSort2, testArr1, false)
 // main(selectionSort1, testArr1, false)
 // main(bubbleSort,testArr1,false)
-main(shellSort, testArr, false)
-main(shellSort1, testArr, false)
+// main(shellSort, testArr1, true)
+// main(shellSort1, testArr1, true)
+// main(shellSort2, testArr1, true)
 
+main(shellSort, testArr1, false)
+main(shellSort1, testArr1, false)
+main(shellSort2, testArr1, false)
+main(shellSort3, testArr1, false)
+main(shellSort4, testArr1, false)
+console.log( 23.101493571 * 9000000)
